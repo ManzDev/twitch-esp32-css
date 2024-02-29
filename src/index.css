@@ -1,3 +1,9 @@
 body {
   background: #39395e;
 }
+
+.container {
+  display: grid;
+  place-items: center;
+  margin-top: 10rem;
+}

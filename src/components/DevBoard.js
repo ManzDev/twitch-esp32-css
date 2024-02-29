@@ -1,6 +1,13 @@
 import "@/components/ElectroPin.js";
 import "@/components/WifiAntenna.js";
 import "@/components/SystemOnChip.js";
+import "@/components/Esp32Transistor.js";
+import "@/components/DiodoRect.js";
+import "@/components/CapacitorSMD.js";
+import "@/components/ResistanceSMD.js";
+import "@/components/SerialConverter.js";
+import "@/components/SwitchButton.js";
+import "@/components/USBConnector.js";
 
 class DevBoard extends HTMLElement {
   constructor() {
@@ -14,6 +21,14 @@ class DevBoard extends HTMLElement {
         --width: 600px;
         --height: calc(var(--width) * 0.57);
         --background-color: #202020;
+
+        --pin-color: #8d898c;
+        --dark-pin-color: color-mix(in srgb, var(--pin-color), black 30%);
+        --chip-color: #3d3b3c;
+
+        display: block;
+        width: var(--width);
+        position: relative;
       }
 
       .container {
@@ -51,10 +66,56 @@ class DevBoard extends HTMLElement {
 
       .middle {
         display: grid;
-        grid-template-columns: 6fr 2.5fr 1.5fr 1.75fr 1.75fr;
+        grid-template-columns: 6fr 2.5fr 3.25fr 1.75fr;
 
         & .wifi-soc-container {
           display: flex;
+          align-items: center;
+        }
+
+        & .smd-circuit {
+          width: 10px;
+          height: 12px;
+          background: var(--chip-color);
+          border-top: 4px solid var(--pin-color);
+          border-bottom: 4px solid var(--pin-color);
+        }
+
+        & .col-2 {
+          padding-left: 2rem;
+          display: grid;
+          grid-template-rows: 5.5fr 1.5fr 3fr;
+
+          & .col-top {
+            display: grid;
+            align-items: center;
+          }
+
+          & .col-middle {
+            display: grid;
+            grid-template-columns: 0.8fr 1fr;
+            place-items: center;
+          }
+        }
+
+        & .col-3 {
+          padding-left: 1rem;
+          display: grid;
+          grid-template-rows: 0.5fr 1.15fr 0.5fr;
+
+          & :is(.col-top, .col-bottom) {
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 5px;
+            margin: 0 5px;
+          }
+        }
+
+        & .col-4 {
+          display: grid;
+          grid-template-rows: 1fr 2fr 1fr;
           align-items: center;
         }
       }
@@ -94,10 +155,40 @@ class DevBoard extends HTMLElement {
           <wifi-antenna></wifi-antenna>
           <system-on-chip></system-on-chip>
         </div>
-        <div class="col-2"></div>
-        <div class="col-3"></div>
-        <div class="col-4"></div>
-        <div class="col-5"></div>
+        <div class="col-2">
+          <div class="col-top">
+            <esp32-transistor></esp32-transistor>
+          </div>
+          <div class="col-middle">
+            <div class="smd-circuit"></div>
+            <diodo-rect class="small"></diodo-rect>
+          </div>
+          <div class="col-bottom">
+            <diodo-rect></diodo-rect>
+          </div>
+        </div>
+        <div class="col-3">
+            <div class="col-top">
+              <capacitor-smd></capacitor-smd>
+              <resistance-smd></resistance-smd>
+              <capacitor-smd></capacitor-smd>
+              <resistance-smd></resistance-smd>
+            </div>
+            <div class="col-middle">
+              <serial-converter></serial-converter>
+            </div>
+            <div class="col-bottom">
+              <capacitor-smd></capacitor-smd>
+              <resistance-smd></resistance-smd>
+              <capacitor-smd></capacitor-smd>
+              <resistance-smd></resistance-smd>
+            </div>
+        </div>
+        <div class="col-4">
+          <switch-button text="FLASH"></switch-button>
+          <div></div>
+          <switch-button text="RESET"></switch-button>
+        </div>
       </div>
       <div class="bottom">
         <div class="pins-header">
@@ -119,7 +210,8 @@ class DevBoard extends HTMLElement {
           <electro-pin text="Vin" flip></electro-pin>
         </div>
       </div>
-    </div>`;
+    </div>
+    <usb-connector></usb-connector>`;
   }
 }
 

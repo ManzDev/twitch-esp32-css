@@ -37,7 +37,7 @@ class ElectroPin extends HTMLElement {
       }
 
       .text {
-        font-family: Jost;
+        font-family: Jost, sans-serif;
         font-size: 0.7rem;
         text-align: center;
         color: #aaa;
